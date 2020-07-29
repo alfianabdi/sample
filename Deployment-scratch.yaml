@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-scratch
+  labels:
+    app: sample-scratch
+    kind: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-scratch
+      kind: sample
+  template:
+    metadata:
+      labels:
+        app: sample-scratch
+        kind: sample
+    spec:
+      containers:
+      - name: sample-scratch
+        image: alfianabdi/sample:v0.3-multistage-scratch
+        ports:
+        - containerPort: 8000
+        env:
+          - name: AWS_REGION
+            value: ap-southeast-1

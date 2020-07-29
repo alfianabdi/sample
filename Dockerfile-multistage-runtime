@@ -1,0 +1,25 @@
+# Build Stage
+FROM golang:1.14.6-buster AS build
+
+WORKDIR /src
+
+COPY go.mod go.sum main.go ./
+
+RUN env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -o app
+
+# Final stage for runtime
+FROM runtime:0.1
+
+RUN useradd appuser
+
+WORKDIR /app
+
+COPY --from=build /src/app ./
+
+ENV AWS_REGION="us-east-1"
+
+EXPOSE 8000
+
+USER appuser
+
+ENTRYPOINT ./app

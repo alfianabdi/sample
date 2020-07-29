@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-runtime
+  labels:
+    app: sample-runtime
+    kind: sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-runtime
+      kind: sample
+  template:
+    metadata:
+      labels:
+        app: sample-runtime
+        kind: sample
+    spec:
+      containers:
+      - name: sample-runtime
+        image: alfianabdi/sample:v0.3-multistage-runtime
+        ports:
+        - containerPort: 8000
+        env:
+          - name: AWS_REGION
+            value: ap-southeast-1
