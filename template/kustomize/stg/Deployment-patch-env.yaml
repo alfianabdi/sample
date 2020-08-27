@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-scratch
+  labels:
+    app: sample-scratch
+    kind: sample
+spec:
+  template:
+    spec:
+      containers:
+      - name: sample-scratch
+        env:
+          - name: AWS_SSM_PREFIX
+            value: /stg/sample/
